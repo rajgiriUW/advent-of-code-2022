@@ -3,19 +3,21 @@ f = open(base + r'03_input.txt')
 data = [x.strip() for x in f.readlines()]
 
 # Part 1
+# New things learned: ord (returns unicode of a char), and remembered set
+# intersections
 
 #Learned that 'ord' exists! returns ascii code for a character
 def letsum(letter):
     if letter == letter.upper():
         return ord(letter) - 65 + 27 # the ASCII code for 'A', +27 because of the directions
-    return ord(letter) - 96 # the ASCII code for 'a', + 1
+    return ord(letter) - 97 + 1 # the ASCII code for 'a', + 1 per directions
 
 sumletters = 0
 for d in data:
     
     ln = len(d)//2
     lt = list(d[:ln])
-    rt = list(d[ln:])
+    rt = list(d[ln:]) 
 
     overlap = set(lt).intersection(rt)   
     letter = list(overlap)[0]
