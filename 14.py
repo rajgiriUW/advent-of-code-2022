@@ -11,6 +11,7 @@ data = f.read().split('\n')[:-1]
 # data = f.read().split('\n')[:-1]
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 # 0 = empty, 1 = wall, -1 = sand
 
@@ -37,13 +38,14 @@ def makecave(data, floor=0):
             else:
                 for l in lt:
                     cave[l, rt] = 1
+
     if floor > 0:
         r, _ = np.where(cave == 1)
         cave[r[-1]+2,:] = 1
         
     r, _ = np.where(cave == 1)
     cave = cave[:r[-1]+1, :]
-    
+        
     return cave
 
 def nextmove(cave, pos):
@@ -84,6 +86,10 @@ while not fallen:
 
 print('Part 1:', n)  
 
+_, c = np.where(cave == 1)
+plt.figure()
+plt.imshow(cave[:, min(c):max(c)], cmap='inferno')
+
 # Part2
 cave = makecave(data, floor=2)
 
@@ -106,3 +112,8 @@ while not stopped:
         stopped = True
 
 print('Part 2:', n)  
+
+_, c = np.where(cave == -1)
+
+plt.figure()
+plt.imshow(cave[:, min(c):max(c)], cmap='inferno')
